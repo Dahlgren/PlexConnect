@@ -70,7 +70,7 @@ def declarePMS(ATV_udid, uuid, name, ip, port, type, token):
     g_PMS[ATV_udid][uuid] = { 'name': name,
                               'ip': ip , 'port': port, 'address': address,
                               'type': type,
-                              'accessToken': token
+                              'accesstoken': token
                             }
 
 def updatePMSProperty(ATV_udid, uuid, tag, value):
