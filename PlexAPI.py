@@ -263,6 +263,9 @@ def discoverPMS(ATV_udid, CSettings, MyPlexToken=''):
                     declarePMS(ATV_udid, uuid, name, ip, port, 'myplex', token)
                 else:
                     updatePMSProperty(ATV_udid, uuid, 'accesstoken', token)
+
+    if not ATV_udid in g_PMS:
+        g_PMS[ATV_udid] = {}
     
     # debug print all servers
     dprint(__name__, 0, "Servers (local+MyPlex): {0}", len(g_PMS[ATV_udid]))
