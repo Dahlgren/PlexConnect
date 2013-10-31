@@ -31,6 +31,7 @@ http://stackoverflow.com/questions/111945/is-there-any-way-to-do-http-put-in-pyt
 
 import sys
 import struct
+import time
 import urllib2, socket
 
 try:
@@ -243,7 +244,15 @@ def discoverPMS(ATV_udid, CSettings, MyPlexToken=''):
         if XML==False:
             pass  # no data from MyPlex
         else:
+            current_time = time.time()
+            two_days_in_seconds = 60*60*24*2
+
             for Dir in XML.getiterator('Server'):
+                last_update = int(Dir.get('updatedAt'))
+
+                if current_time - last_update > two_days_in_seconds:
+                    continue
+
                 uuid = Dir.get('machineIdentifier')
                 name = Dir.get('name')
                 ip = Dir.get('address')
