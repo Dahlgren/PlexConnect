@@ -14,6 +14,10 @@
           <title>{{TEXT(Channels)}}</title>
           <url>{{URL(:/channels/all)}}</url>
         </navigationItem>
+        <navigationItem id="Queue">{{CUT($myplex_auth:CUT:=CUT| =)}}
+          <title>{{TEXT(Queue)}}</title>
+          <url>{{URL(:/queue)}}</url>
+        </navigationItem>
         <navigationItem id="Settings">
           <title>{{TEXT(Settings)}}</title>
           <url>{{URL(:/&amp;PlexConnect=Settings)}}</url>

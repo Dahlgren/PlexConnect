@@ -1,0 +1,27 @@
+<atv>
+  <body>
+    <videoPlayer id="com.sample.video-player">
+      <httpFileVideoAsset id="{{VAL(Video/key)}}">
+        <mediaURL>{{MEDIAURL(Video)}}</mediaURL>
+        
+        <myMetadata>
+            <!-- PMS, OSD settings, ... -->
+            <addrPMS>http://node.plexapp.com:32400</addrPMS>
+            <key>{{VAL(Video/key)}}</key>
+            <showClock>{{VAL($showplayerclock)}}</showClock>
+            <timeFormat>{{VAL($timeformat)}}</timeFormat>
+            <clockPosition>{{VAL($clockposition)}}</clockPosition>
+            <overscanAdjust>{{VAL($overscanadjust)}}</overscanAdjust>
+            <showEndtime>{{VAL($showendtime)}}</showEndtime>
+            <authToken>{{VAL($myplex_auth)}}</authToken>
+            
+            <!-- stacked media -->
+            <httpFileVideoAsset id="{{VAL(key)}}">
+                <mediaURL>{{MEDIAURL(key)}}</mediaURL>
+            </httpFileVideoAsset>{{COPY(Video/Media/Part)}}
+        </myMetadata>
+        
+      </httpFileVideoAsset>
+    </videoPlayer>
+  </body>
+</atv>

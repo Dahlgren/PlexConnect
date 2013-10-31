@@ -213,6 +213,14 @@ def XML_PMS2aTV(PMSaddress, path, options):
         
     elif cmd=='ChannelPrePlay':
         XMLtemplate = 'ChannelPrePlay.xml'
+
+    elif cmd=='QueuePrePlay':
+        XMLtemplate = 'QueuePrePlay.xml'
+        path = path[len("/queue?url=http://"):]
+
+    elif cmd=='QueuePlay':
+        XMLtemplate = 'QueuePlay.xml'
+        path = path[len("/queue?url=http://"):]
     
     elif cmd=='ChannelsVideo':
         XMLtemplate = 'ChannelsVideo.xml'
@@ -323,6 +331,10 @@ def XML_PMS2aTV(PMSaddress, path, options):
     
     elif path=='/channels/all':
         XMLtemplate = 'Channels.xml'
+        path = ''
+
+    elif path=='/queue':
+        XMLtemplate = 'Queue_List.xml'
         path = ''
     
     # request PMS XML
@@ -787,6 +799,10 @@ class CCommandCollection(CCommandHelper):
         if key.startswith('//local'):  # local servers signature
             path = key[len('//local'):]
             PMS = PlexAPI.getXMLFromMultiplePMS(UDID, path, self.options)
+        elif key.startswith('//queue'):  # queue signature
+            path = key[len('//queue'):]
+            myplex_auth = g_ATVSettings.getSetting(UDID, 'myplex_auth')
+            PMS = PlexAPI.getXMLFromPMS('https://my.plexapp.com/pms/playlists/queue', path, self.options, myplex_auth)
         elif key.startswith('/'):  # internal full path.
             path = key
             PMS = PlexAPI.getXMLFromPMS('http://'+self.PMSaddress, path, self.options, auth_token)

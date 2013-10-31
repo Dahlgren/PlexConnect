@@ -1,0 +1,53 @@
+<atv>
+  <head>
+    <script src="{{URL(:/js/utils.js)}}" />
+  </head>
+
+  <body>
+    {{ADDXML(Queue:://queue/all)}}
+    
+    {{VAR(videos:NoKey:FALSE)}}  <!--this sets the var to FALSE-->
+    
+    <!--Channels List-->
+    <listWithPreview id="com.sample.menu-items-with-sections">
+      <header>
+        <simpleHeader>
+          <title>{{TEXT(Queue)}}</title>
+        </simpleHeader>
+      </header>
+      <menu>
+        <sections>
+          {{CUT(@Queue/size:CUT:0=CUT|1=)}}
+          <!-- video channels: local servers -->
+          <menuSection>
+            <items>
+              <!-- video channels per server -->
+              <oneLineMenuItem id="Video_{{VAL(key)}}"
+                           onPlay="atv.loadURL('{{URL(:/queue)}}?url={{URL(Media/Part/key)}}&amp;PlexConnect=QueuePlay')"
+                         onSelect="atv.loadURL('{{URL(:/queue)}}?url={{URL(key)}}&amp;PlexConnect=QueuePrePlay')">
+                {{COPY(@Queue/Video)}}
+                {{VAR(videos:NoKey:TRUE)}}  <!--within COPY this sets the var to TRUE-->
+                <label>{{VAL(title)}}</label>
+                <image>{{VAL(thumb)}}</image>
+                <preview>
+                  <crossFadePreview>
+                    <image>{{VAL(thumb)}}</image>
+                  </crossFadePreview>
+                </preview>
+              </oneLineMenuItem>
+            </items>
+          </menuSection>
+        </sections>
+      </menu>
+    </listWithPreview>
+    {{CUT(#videos::FALSE=CUT|TRUE=)}}  <!--CUT if no channel added-->
+    
+    <!--No Channels Available-->
+    <dialog id="com.sample.error-dialog">
+    {{CUT(#videos::FALSE=|TRUE=CUT)}}
+      <title>PlexConnect</title>
+      <description>{{TEXT(No Queue Available)}}</description>
+    </dialog>
+    
+  </body>
+</atv>
