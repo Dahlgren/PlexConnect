@@ -342,7 +342,7 @@ def getXMLFromMultiplePMS(ATV_udid, path, options={}):
     
     for uuid in g_PMS.get(ATV_udid, {}):
         PMS = g_PMS[ATV_udid][uuid]
-        if PMS['type']=='local':
+        if PMS['type']=='local' or PMS['type']=='myplex':
             Server = etree.SubElement(root, 'Server')  # create "Server" node
             Server.set('name',    getPMSProperty(ATV_udid, uuid, 'name'))
             Server.set('address', getPMSProperty(ATV_udid, uuid, 'ip'))
